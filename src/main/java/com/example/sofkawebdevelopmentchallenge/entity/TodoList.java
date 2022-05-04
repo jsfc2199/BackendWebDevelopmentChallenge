@@ -14,4 +14,5 @@ public class TodoList {
     private Long id;
     private String todolistName;
     private boolean isCompleted;
+    private Long fkTodoId;
 }
