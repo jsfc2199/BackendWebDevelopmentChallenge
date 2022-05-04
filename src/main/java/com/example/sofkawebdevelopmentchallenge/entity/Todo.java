@@ -17,6 +17,10 @@ public class Todo {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<TodoList> listOfTodos = new ArrayList<>();
+    private List<Task> listOfTodos = new ArrayList<>();
 
+    public Todo addTask(Task task){
+        this.listOfTodos.add(task);
+        return this;
+    }
 }
