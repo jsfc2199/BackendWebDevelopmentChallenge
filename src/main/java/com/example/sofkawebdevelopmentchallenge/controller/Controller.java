@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/")
+@CrossOrigin("http://localhost:3000/")
 public class Controller {
 
     @Autowired
@@ -46,7 +47,7 @@ public class Controller {
     }
 
     @PutMapping("update/task")
-    public void updateTask(@RequestBody Task task){
-        service.updateTask(task);
+    public Task updateTask(@RequestBody Task task){
+        return service.updateTask(task);
     }
 }

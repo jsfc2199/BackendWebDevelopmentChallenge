@@ -17,10 +17,10 @@ public class Todo {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Task> listOfTodos = new ArrayList<>();
+    private List<Task> listOfTasks = new ArrayList<>();
 
     public Todo addTask(Task task){
-        this.listOfTodos.add(task);
+        this.listOfTasks.add(task);
         return this;
     }
 }

@@ -50,8 +50,8 @@ public class TodoDaoImplementation implements TodoDao{
     @Override
     public void deleteTodo(Todo todo) {
         Todo todoToDelete = todoRepository.findById(todo.getId()).get();
-        if(todoToDelete.getListOfTodos().size()>=0){
-            todoToDelete.getListOfTodos().forEach(task -> taskRepository.deleteById(task.getId()));
+        if(todoToDelete.getListOfTasks().size()>=0){
+            todoToDelete.getListOfTasks().forEach(task -> taskRepository.deleteById(task.getId()));
         }
         todoRepository.deleteById(todo.getId());
     }
