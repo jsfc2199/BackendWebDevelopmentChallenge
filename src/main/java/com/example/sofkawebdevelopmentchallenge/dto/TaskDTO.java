@@ -1,14 +1,7 @@
-package com.example.sofkawebdevelopmentchallenge.entity;
+package com.example.sofkawebdevelopmentchallenge.dto;
 
-import javax.persistence.*;
 
-@Entity(name = "Task")
-@Table(name = "todolist")
-
-public class Task {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class TaskDTO {
     private Long id;
     private String todolistName;
     private boolean isCompleted;

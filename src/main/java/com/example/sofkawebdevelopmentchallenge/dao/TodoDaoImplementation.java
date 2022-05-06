@@ -1,5 +1,9 @@
 package com.example.sofkawebdevelopmentchallenge.dao;
 
+import com.example.sofkawebdevelopmentchallenge.dto.TaskDTO;
+import com.example.sofkawebdevelopmentchallenge.dto.TaskDTOInterface;
+import com.example.sofkawebdevelopmentchallenge.dto.TodoDTO;
+import com.example.sofkawebdevelopmentchallenge.dto.TodoDTOInterface;
 import com.example.sofkawebdevelopmentchallenge.entity.Task;
 import com.example.sofkawebdevelopmentchallenge.entity.Todo;
 import com.example.sofkawebdevelopmentchallenge.repository.TaskRepository;
@@ -18,10 +22,17 @@ public class TodoDaoImplementation implements TodoDao{
     @Autowired
     private TodoRepository todoRepository;
 
+    @Autowired
+    private TodoDTOInterface todoMapper;
+
+    @Autowired
+    private TaskDTOInterface taskMapper;
+
 
     @Override
-    public List<Todo> findAllTodo() {
-        return todoRepository.findAll();
+    public List<TodoDTO> findAllTodo() {
+        List<Todo> todosList = todoRepository.findAll();
+        return todoMapper.fromTodoToTodoDto(todosList);
     }
 
     @Override
@@ -30,35 +41,43 @@ public class TodoDaoImplementation implements TodoDao{
     }
 
     @Override
-    public Todo createTodo(Todo Todo) {
-        return todoRepository.save(Todo);
+    public TodoDTO createTodo(TodoDTO todoDto) {
+        Todo todo = todoMapper.fromTodoDTOtoTodo(todoDto);
+        todoRepository.save(todo);
+        return todoMapper.fromTodotoTodoDTO(todo);
     }
 
     @Override
-    public Todo createTasks(Task task) {
-        Todo todo = todoRepository.findById(task.getFkTodoId()).get();
-        todo.addTask(task);
-        taskRepository.save(task);
-        return todoRepository.save(todo);
+    public TodoDTO createTasks(TaskDTO taskDto) {
+        Todo todo = todoRepository.findById(taskDto.getFkTodoId()).get();
+        todo.addTask(taskMapper.fromTaskDTOtoTask(taskDto));
+        taskRepository.save(taskMapper.fromTaskDTOtoTask(taskDto));
+        Todo todoSave = todoRepository.save(todo);
+        return todoMapper.fromTodotoTodoDTO(todoSave);
     }
 
     @Override
-    public void deleteTasks(Task task) {
-        taskRepository.deleteById(task.getId());
+    public void deleteTasks(TaskDTO taskDto) {
+        Task taskToDelete = taskMapper.fromTaskDTOtoTask(taskDto);
+        taskRepository.deleteById(taskToDelete.getId());
     }
 
     @Override
-    public void deleteTodo(Todo todo) {
-        Todo todoToDelete = todoRepository.findById(todo.getId()).get();
-        if(todoToDelete.getListOfTasks().size()>=0){
-            todoToDelete.getListOfTasks().forEach(task -> taskRepository.deleteById(task.getId()));
+    public void deleteTodo(TodoDTO todoDto) {
+
+
+        Todo todoToBeDeleted = todoMapper.fromTodoDTOtoTodo(todoDto);
+        if(todoToBeDeleted.getListOfTasks().size()>=0){
+            todoToBeDeleted.getListOfTasks().forEach(task -> taskRepository.deleteById(task.getId()));
         }
-        todoRepository.deleteById(todo.getId());
+        todoRepository.deleteById(todoToBeDeleted.getId());
+
     }
 
     @Override
-    public Task updateTask(Task task) {
-        return taskRepository.save(task);
+    public TaskDTO updateTask(TaskDTO taskDto) {
+        Task taskToUpdate = taskMapper.fromTaskDTOtoTask(taskDto);
+        return taskMapper.fromTasjtoTaskDTO(taskRepository.save(taskToUpdate));
     }
 
 }

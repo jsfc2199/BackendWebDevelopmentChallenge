@@ -1,20 +1,14 @@
-package com.example.sofkawebdevelopmentchallenge.entity;
+package com.example.sofkawebdevelopmentchallenge.dto;
 
-import javax.persistence.*;
+import com.example.sofkawebdevelopmentchallenge.entity.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "Todo")
-@Table(name = "todo")
 
-public class Todo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class TodoDTO {
     private Long id;
     private String name;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Task> listOfTasks = new ArrayList<>();
 
     public Long getId() {
@@ -39,10 +33,5 @@ public class Todo {
 
     public void setListOfTasks(List<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
-    }
-
-    public Todo addTask(Task task){
-        this.listOfTasks.add(task);
-        return this;
     }
 }

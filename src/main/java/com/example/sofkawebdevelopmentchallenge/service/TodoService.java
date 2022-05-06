@@ -1,6 +1,8 @@
 package com.example.sofkawebdevelopmentchallenge.service;
 
 import com.example.sofkawebdevelopmentchallenge.dao.TodoDaoImplementation;
+import com.example.sofkawebdevelopmentchallenge.dto.TaskDTO;
+import com.example.sofkawebdevelopmentchallenge.dto.TodoDTO;
 import com.example.sofkawebdevelopmentchallenge.entity.Task;
 import com.example.sofkawebdevelopmentchallenge.entity.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class TodoService {
     private TodoDaoImplementation todoDaoImplementation;
 
 
-    public List<Todo> findAllTodo() {
+    public List<TodoDTO> findAllTodo() {
         return todoDaoImplementation.findAllTodo();
     }
 
@@ -25,25 +27,25 @@ public class TodoService {
     }
 
 
-    public Todo createTodo(Todo todo) {
+    public TodoDTO createTodo(TodoDTO todo) {
         return todoDaoImplementation.createTodo(todo);
     }
 
-    public Todo createTasks(Task task) {
+    public TodoDTO createTasks(TaskDTO task) {
         return todoDaoImplementation.createTasks(task);
     }
 
 
-    public void deleteTasks(Task task) {
+    public void deleteTasks(TaskDTO task) {
         todoDaoImplementation.deleteTasks(task);
     }
 
 
-    public void deleteTodo(Todo todo) {
+    public void deleteTodo(TodoDTO todo) {
         todoDaoImplementation.deleteTodo(todo);
     }
 
-    public Task updateTask(Task task){
+    public TaskDTO updateTask(TaskDTO task){
         return todoDaoImplementation.updateTask(task);
     }
 }

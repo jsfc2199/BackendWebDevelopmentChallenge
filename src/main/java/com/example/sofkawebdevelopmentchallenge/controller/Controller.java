@@ -1,5 +1,7 @@
 package com.example.sofkawebdevelopmentchallenge.controller;
 
+import com.example.sofkawebdevelopmentchallenge.dto.TaskDTO;
+import com.example.sofkawebdevelopmentchallenge.dto.TodoDTO;
 import com.example.sofkawebdevelopmentchallenge.entity.Task;
 import com.example.sofkawebdevelopmentchallenge.entity.Todo;
 import com.example.sofkawebdevelopmentchallenge.service.TodoService;
@@ -17,7 +19,7 @@ public class Controller {
     private TodoService service;
 
     @GetMapping("get/todos")
-    public List<Todo> getAllTodos(){
+    public List<TodoDTO> getAllTodos(){
         return service.findAllTodo();
     }
 
@@ -27,27 +29,27 @@ public class Controller {
     }
 
     @PostMapping("create/post")
-    public Todo createTodo (@RequestBody Todo todo){
+    public TodoDTO createTodo (@RequestBody TodoDTO todo){
         return service.createTodo(todo);
     }
 
     @PostMapping("create/task")
-    public Todo createTask(@RequestBody Task task){
+    public TodoDTO createTask(@RequestBody TaskDTO task){
         return service.createTasks(task);
     }
 
     @DeleteMapping("delete/todo")
-    public void deleteTodo(@RequestBody Todo todo){
+    public void deleteTodo(@RequestBody TodoDTO todo){
         service.deleteTodo(todo);
     }
 
     @DeleteMapping("delete/task")
-    public void deleteTask(@RequestBody Task task){
+    public void deleteTask(@RequestBody TaskDTO task){
         service.deleteTasks(task);
     }
 
     @PutMapping("update/task")
-    public Task updateTask(@RequestBody Task task){
+    public TaskDTO updateTask(@RequestBody TaskDTO task){
         return service.updateTask(task);
     }
 }
